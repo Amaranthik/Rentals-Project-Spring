@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDocumentation>
+    <projectInfo>
+        <projectName>Rentals Management System</projectName>
+        <description>Информационная система управления арендой недвижимости</description>
+        <student>Чеповецкий Александр</student>
+        <group>ИТ-7</group>
+        <year>2025</year>
+    </projectInfo>
+
+    <technologies>
+        <backend>Java 17, Spring Boot 3, Spring Data JPA</backend>
+        <database>PostgreSQL</database>
+        <frontend>Thymeleaf, Bootstrap 5</frontend>
+        <buildTool>Maven</buildTool>
+    </technologies>
+
+    <databaseStructure>
+        <entity name="User">
+            <description>Пользователи системы (Арендодатели и Арендаторы)</description>
+            <operations>CRUD (Создание, Чтение, Редактирование, Удаление)</operations>
+        </entity>
+        <entity name="Property">
+            <description>Объекты недвижимости. Связь Many-to-One с User</description>
+            <operations>CRUD + Поиск по названию/городу</operations>
+        </entity>
+        <entity name="Booking">
+            <description>Бронирования. Связь Many-to-One с Property и User</description>
+            <operations>Создание, Чтение, Удаление (Отмена), Валидация дат</operations>
+        </entity>
+    </databaseStructure>
+
+    <functionalFeatures>
+        <feature>Веб-интерфейс для управления объектами</feature>
+        <feature>Валидация входных данных (цены, даты, форматы)</feature>
+        <feature>Единый стиль UI (Bootstrap)</feature>
+        <feature>Бизнес-логика оформления договора аренды</feature>
+    </functionalFeatures>
+</projectDocumentation>

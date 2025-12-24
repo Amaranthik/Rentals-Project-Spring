@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Журнал Бронирований</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>body { background-color: #f8f9fa; }</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/properties">🏠 RENTALS SYSTEM</a>
+        <div class="d-flex">
+            <a href="/properties" class="btn btn-outline-light me-2">Объекты</a>
+            <a href="/bookings" class="btn btn-light me-2 fw-bold text-dark">Бронирования</a>
+            <a href="/users" class="btn btn-outline-light">Пользователи</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="card shadow p-4 border-0">
+        <h2 class="mb-4">📅 Журнал операций</h2>
+
+        <table class="table table-hover align-middle">
+            <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Объект</th>
+                <th>Клиент</th>
+                <th>Период</th>
+                <th>Сумма</th>
+                <th>Статус</th>
+                <th>Действия</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="book : ${bookings}">
+                <td class="fw-bold text-muted">#<span th:text="${book.id}"></span></td>
+                <td>
+                    <a th:href="@{/properties}" class="text-decoration-none fw-bold text-dark" th:text="${book.property.title}"></a>
+                </td>
+                <td>
+                    <span class="fw-bold" th:text="${book.tenant.fullName}"></span><br>
+                    <small class="text-muted" th:text="${book.tenant.role}"></small>
+                </td>
+                <td>
+                    <span th:text="${book.startDate}"></span><br>
+                    <span th:text="${book.endDate}" class="text-muted"></span>
+                </td>
+                <td>
+                    <h5 class="text-success m-0" th:text="${book.totalPrice} != null ? ${book.totalPrice} + ' ₽' : '0 ₽'"></h5>
+                </td>
+                <td>
+                    <span class="badge bg-success" th:text="${book.status}">Confirmed</span>
+                </td>
+                <td>
+                    <a th:href="@{/bookings/delete/{id}(id=${book.id})}" class="btn btn-outline-danger btn-sm"
+                       onclick="return confirm('Отменить бронь?');">Отмена</a>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <div th:if="${bookings.empty}" class="alert alert-warning">Бронирований пока нет.</div>
+    </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Пользователи</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>body { background-color: #f5f6f7; }</style>
+</head>
+<body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4 shadow">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/properties">🏠 RENTALS SYSTEM</a>
+        <div class="d-flex">
+            <a href="/properties" class="btn btn-outline-light me-2">Объекты</a>
+            <a href="/bookings" class="btn btn-outline-light me-2">Бронирования</a>
+            <a href="/users" class="btn btn-light fw-bold text-dark">Пользователи</a>
+        </div>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="d-flex justify-content-end mb-3">
+        <a href="/users/new" class="btn btn-dark fw-bold">+ Новый пользователь</a>
+    </div>
+
+    <div class="card shadow border-0">
+        <div class="card-header bg-secondary text-white p-3">
+            <h4 class="m-0">👥 Реестр пользователей</h4>
+        </div>
+        <div class="card-body p-0">
+            <table class="table table-striped table-hover mb-0 align-middle">
+                <thead class="table-dark">
+                <tr>
+                    <th>ID</th>
+                    <th>ФИО</th>
+                    <th>Контакты</th>
+                    <th>Роль</th>
+                    <th class="text-center">Действия</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="u : ${users}">
+                    <td class="fw-bold text-muted" th:text="${u.id}"></td>
+                    <td class="fw-bold" th:text="${u.fullName}"></td>
+                    <td>
+                        <div th:text="${u.email}"></div>
+                        <small class="text-muted" th:text="${u.phone}"></small>
+                    </td>
+                    <td>
+                                <span th:class="${u.role == 'Landlord' ? 'badge bg-warning text-dark' : 'badge bg-info text-dark'}"
+                                      th:text="${u.role}"></span>
+                    </td>
+                    <td class="text-center">
+                        <a th:href="@{/users/edit/{id}(id=${u.id})}" class="btn btn-outline-dark btn-sm">Edit</a>
+                        <a th:href="@{/users/delete/{id}(id=${u.id})}" class="btn btn-outline-danger btn-sm"
+                           onclick="return confirm('Удалить пользователя?');">X</a>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+</body>
+</html>

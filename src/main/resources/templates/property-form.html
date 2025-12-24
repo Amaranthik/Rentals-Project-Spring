@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Объект недвижимости</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body { background-color: #f3f4f6; font-family: system-ui, -apple-system, sans-serif; }
+        .card { border: none; border-radius: 16px; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); }
+        .form-label { font-weight: 600; color: #374151; margin-bottom: 8px; font-size: 0.95rem; }
+        .form-control, .form-select { border-radius: 8px; padding: 12px 16px; border: 1px solid #d1d5db; }
+        .form-control:focus { border-color: #2563eb; box-shadow: 0 0 0 4px rgba(37, 99, 235, 0.1); }
+        .btn-dark { background-color: #1f2937; border-radius: 8px; padding: 12px 32px; font-weight: 600; }
+        .btn-outline-secondary { border-radius: 8px; padding: 12px 24px; }
+    </style>
+</head>
+<body>
+<nav class="navbar navbar-dark bg-dark mb-5">
+    <div class="container">
+        <a class="navbar-brand fw-bold" href="/properties">🏠 RENTALS SYSTEM</a>
+    </div>
+</nav>
+
+<div class="container">
+    <div class="row justify-content-center">
+        <div class="col-lg-8">
+            <div class="card bg-white p-5">
+                <div class="mb-4 pb-3 border-bottom">
+                    <h2 class="fw-bold text-dark" th:text="${property.id} ? 'Редактирование объекта' : 'Новое объявление'"></h2>
+                    <p class="text-muted mb-0">Заполните информацию о недвижимости ниже.</p>
+                </div>
+
+                <form th:action="@{/properties/save}" th:object="${property}" method="post">
+                    <input type="hidden" th:field="*{id}" />
+
+                    <div class="mb-4">
+                        <label class="form-label">Название</label>
+                        <input type="text" th:field="*{title}" class="form-control" placeholder="Например: Светлая студия в центре" required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Тип недвижимости</label>
+                            <select th:field="*{propertyType}" class="form-select">
+                                <option value="Apartment">Квартира</option>
+                                <option value="Studio">Студия</option>
+                                <option value="House">Дом</option>
+                                <option value="Room">Комната</option>
+                            </select>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Цена за месяц</label>
+                            <div class="input-group">
+                                <!-- ВОТ ТУТ ИЗМЕНИЛИ step="100" -->
+                                <input type="number" step="100" min="0" th:field="*{pricePerMonth}" class="form-control" required />
+                                <span class="input-group-text bg-light text-muted">₽</span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="mb-4">
+                        <label class="form-label">Адрес</label>
+                        <input type="text" th:field="*{address}" class="form-control" placeholder="Улица, дом..." required />
+                    </div>
+
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Город</label>
+                            <input type="text" th:field="*{city}" class="form-control" />
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label class="form-label">Владелец</label>
+                            <select th:field="*{owner}" class="form-select" required>
+                                <option th:each="u : ${users}"
+                                        th:value="${u.id}"
+                                        th:text="${u.fullName} + ' (' + ${u.role} + ')'"></option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="d-flex justify-content-end gap-3 mt-4">
+                        <a href="/properties" class="btn btn-outline-secondary">Отмена</a>
+                        <button type="submit" class="btn btn-dark">Сохранить изменения</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
