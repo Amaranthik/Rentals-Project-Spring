@@ -46,7 +46,7 @@
 
 ## Технологический стек
 
-- **Язык:** Java 17 (запуск на JDK 20)
+- **Язык:** Java 17
 - **Фреймворк:** Spring Boot 3 (Spring Web, Spring Data JPA)
 - **База данных:** PostgreSQL
 - **ORM:** Hibernate (через Spring Data JPA)
