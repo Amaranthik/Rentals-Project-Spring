@@ -50,7 +50,7 @@
                                       th:text="${u.role}"></span>
                     </td>
                     <td class="text-center">
-                        <a th:href="@{/users/edit/{id}(id=${u.id})}" class="btn btn-outline-dark btn-sm">Edit</a>
+                        <a th:href="@{/users/edit/{id}(id=${u.id})}" class="btn btn-outline-dark btn-sm">Изменить</a>
                         <a th:href="@{/users/delete/{id}(id=${u.id})}" class="btn btn-outline-danger btn-sm"
                            onclick="return confirm('Удалить пользователя?');">X</a>
                     </td>
